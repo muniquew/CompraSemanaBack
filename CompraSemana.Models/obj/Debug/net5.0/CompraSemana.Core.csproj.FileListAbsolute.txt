@@ -1,0 +1,12 @@
+C:\Users\Munique\source\repos\CompraSemanaApp\CompraSemana.Models\bin\Debug\net5.0\CompraSemana.Core.deps.json
+C:\Users\Munique\source\repos\CompraSemanaApp\CompraSemana.Models\bin\Debug\net5.0\CompraSemana.Core.dll
+C:\Users\Munique\source\repos\CompraSemanaApp\CompraSemana.Models\bin\Debug\net5.0\ref\CompraSemana.Core.dll
+C:\Users\Munique\source\repos\CompraSemanaApp\CompraSemana.Models\bin\Debug\net5.0\CompraSemana.Core.pdb
+C:\Users\Munique\source\repos\CompraSemanaApp\CompraSemana.Models\obj\Debug\net5.0\CompraSemana.Core.csprojAssemblyReference.cache
+C:\Users\Munique\source\repos\CompraSemanaApp\CompraSemana.Models\obj\Debug\net5.0\CompraSemana.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Munique\source\repos\CompraSemanaApp\CompraSemana.Models\obj\Debug\net5.0\CompraSemana.Core.AssemblyInfoInputs.cache
+C:\Users\Munique\source\repos\CompraSemanaApp\CompraSemana.Models\obj\Debug\net5.0\CompraSemana.Core.AssemblyInfo.cs
+C:\Users\Munique\source\repos\CompraSemanaApp\CompraSemana.Models\obj\Debug\net5.0\CompraSemana.Core.csproj.CoreCompileInputs.cache
+C:\Users\Munique\source\repos\CompraSemanaApp\CompraSemana.Models\obj\Debug\net5.0\CompraSemana.Core.dll
+C:\Users\Munique\source\repos\CompraSemanaApp\CompraSemana.Models\obj\Debug\net5.0\ref\CompraSemana.Core.dll
+C:\Users\Munique\source\repos\CompraSemanaApp\CompraSemana.Models\obj\Debug\net5.0\CompraSemana.Core.pdb
