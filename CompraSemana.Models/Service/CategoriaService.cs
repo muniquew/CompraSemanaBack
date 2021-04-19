@@ -49,5 +49,11 @@ namespace CompraSemana.Core.Service
                 return null;
             }
         }
+
+        public async Task<bool> Adicionar(string json)
+        {
+            var categoria = JsonConvert.DeserializeObject<Categoria>(json);
+            return await _categoriaRepository.Adicionar(categoria);
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace CompraSemana.Core.Service.Interfaces
     {
         Task<Categoria> ObterCategoriaPorId(int id);
         Task<string> ObterTodasCategorias();
-        //Task<IEnumerable<Categoria>> ObterTodasCategorias();
+        Task<bool> Adicionar(string json);
+        
     }
 }

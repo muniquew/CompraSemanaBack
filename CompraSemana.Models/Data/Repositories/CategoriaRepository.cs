@@ -12,88 +12,41 @@ namespace CompraSemana.Core.Data.Repositories
     public class CategoriaRepository : ICategoriaRepository
     {
         private readonly IConnectionFactory _connection;
+        private readonly IBaseRepository _baseRepository;
 
-        public CategoriaRepository(IConnectionFactory connection) 
+        public CategoriaRepository(IConnectionFactory connection, IBaseRepository baseRepository)
         {
             _connection = connection;
+            _baseRepository = baseRepository;
         }
 
         public async Task<Categoria> ConsultarUnico(int id)
         {
-            var sql = "Select Id, Descricao, Situacao From Categoria Where Id = :Id";
+            var sql = "Select Id, Descricao, Situacao From Categoria Where Id = @Id";
 
-            try
-            {
-                using (var conn = _connection.Connection())
-                {
-                    return await conn.QueryFirstOrDefaultAsync<Categoria>(sql, new { Id = id });
-                }
-            }
-            catch(Exception)
-            {
-                return default(Categoria);
-            }
+            return await _baseRepository.QuerySingleOrDefault<Categoria>(sql, new { Id = id });
         }
         
         public async Task<IEnumerable<Categoria>> ConsultarTodos()
         {
             var sql = "Select Id, Descricao, Situacao From Categoria";
 
-            try
-            {
-                using (var conn = _connection.Connection())
-                {
-                    return await conn.QueryAsync<Categoria>(sql);
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
+            return await _baseRepository.QueryAll<Categoria>(sql);
         }
 
-        public async Task<int> Adicionar(Categoria categoria)
+        public async Task<bool> Adicionar(Categoria categoria)
         {
             var sql = "INSERT INTO Categoria (Descricao, Situacao) Values (@Descricao, @Situacao);";
 
             try
             {
-                using (var conn = _connection.Connection())
-                {
-                    conn.Open();
-
-                    var result = await conn.ExecuteAsync(sql, categoria);
-
-                    return result;
-                }
+                return await _baseRepository.Execute(sql);
             }
             catch(Exception)
             {
                 //Implementar log
-                return 0;
+                return false;
             }
         }
-
-        public Task<int> Atualizar(Categoria entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> Deletar(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Categoria>> ObterTodos()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-
-        
     }
 }

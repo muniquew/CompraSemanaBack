@@ -25,6 +25,12 @@ namespace CompraSemana.API.Controllers
             return await _categoriaService.ObterTodasCategorias();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Post(string json)
+        {
+            return Ok(await _categoriaService.Adicionar(json));
+        }
+
     }
 
 
