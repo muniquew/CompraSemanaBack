@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompraSemana.API", "CompraSemana\CompraSemana.API.csproj", "{5B3C0294-F4BC-4B84-9B6F-F9DA8978EC58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompraSemana.API", "CompraSemana.API\CompraSemana.API.csproj", "{5B3C0294-F4BC-4B84-9B6F-F9DA8978EC58}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompraSemana.Core", "CompraSemana.Models\CompraSemana.Core.csproj", "{598FB1D2-85E3-4A10-90A0-A399F00B78DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompraSemana.Core", "CompraSemana.Core\CompraSemana.Core.csproj", "{598FB1D2-85E3-4A10-90A0-A399F00B78DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
