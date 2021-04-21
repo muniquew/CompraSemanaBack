@@ -1,4 +1,5 @@
 ﻿using CompraSemana.Core.Models;
+using CompraSemana.Core.Service.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace CompraSemana.Core.Service.Interfaces
 {
     public interface ICategoriaService
     {
-        Task<Categoria> ObterCategoriaPorId(int id);
-        Task<string> ObterTodasCategorias();
-        Task<bool> Adicionar(string json);
+        Task<CategoriaDTO> ObterCategoriaPorId(int id);
+        Task<IEnumerable<CategoriaDTO>> ObterTodasCategorias();
+        Task<bool> Adicionar(CategoriaDTO categoria);
         
     }
 }

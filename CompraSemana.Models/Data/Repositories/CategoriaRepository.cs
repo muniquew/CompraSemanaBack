@@ -40,7 +40,7 @@ namespace CompraSemana.Core.Data.Repositories
 
             try
             {
-                return await _baseRepository.Execute(sql);
+                return await _baseRepository.Execute(sql, categoria);
             }
             catch(Exception)
             {

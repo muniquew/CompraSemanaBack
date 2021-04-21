@@ -1,6 +1,7 @@
 using CompraSemana.Core.Data.Interfaces;
 using CompraSemana.Core.Data.Repositories;
 using CompraSemana.Core.Service;
+using CompraSemana.Core.Service.DTO;
 using CompraSemana.Core.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,8 @@ namespace CompraSemana
             services.AddTransient<IConnectionFactory, ConnectionFactory>();
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ICategoriaService, CategoriaService>();
+
+            services.AddAutoMapper(typeof(MapperConfig));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

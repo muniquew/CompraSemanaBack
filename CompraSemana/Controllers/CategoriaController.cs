@@ -1,4 +1,6 @@
-﻿using CompraSemana.Core.Service.Interfaces;
+﻿using AutoMapper;
+using CompraSemana.Core.Service.DTO;
+using CompraSemana.Core.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,15 +22,21 @@ namespace CompraSemana.API.Controllers
         }
 
         [HttpGet]
-        public async Task<string> Get()
+        public async Task<IEnumerable<CategoriaDTO>> Get()
         {
             return await _categoriaService.ObterTodasCategorias();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post(string json)
+        [HttpGet("{id}")]
+        public async Task<CategoriaDTO> Get(int id)
         {
-            return Ok(await _categoriaService.Adicionar(json));
+            return await _categoriaService.ObterCategoriaPorId(id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] CategoriaDTO categoria)
+        {
+            return Ok(await _categoriaService.Adicionar(categoria));
         }
 
     }

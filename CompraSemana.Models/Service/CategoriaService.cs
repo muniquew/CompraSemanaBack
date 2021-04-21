@@ -1,5 +1,7 @@
-﻿using CompraSemana.Core.Data.Interfaces;
+﻿using AutoMapper;
+using CompraSemana.Core.Data.Interfaces;
 using CompraSemana.Core.Models;
+using CompraSemana.Core.Service.DTO;
 using CompraSemana.Core.Service.Interfaces;
 using Newtonsoft.Json;
 using System;
@@ -11,25 +13,29 @@ namespace CompraSemana.Core.Service
     public class CategoriaService : ICategoriaService
     {
         private readonly ICategoriaRepository _categoriaRepository;
-        public CategoriaService(ICategoriaRepository categoriaRepository)
+        private readonly IMapper _mapper;
+
+        public CategoriaService(ICategoriaRepository categoriaRepository, IMapper mapper)
         {
             _categoriaRepository = categoriaRepository;
+            _mapper = mapper;
         }
 
-        public async Task<Categoria> ObterCategoriaPorId(int id)
+        public async Task<CategoriaDTO> ObterCategoriaPorId(int id)
         {
             try
             {
                 var categoria = await _categoriaRepository.ConsultarUnico(id);
 
-                return categoria;
+                return _mapper.Map<CategoriaDTO>(categoria);
             }
             catch(Exception)
             {
                 return null;
             }
         }
-        public async Task<string> ObterTodasCategorias()
+
+        public async Task<IEnumerable<CategoriaDTO>> ObterTodasCategorias()
         {
             try
             {
@@ -37,7 +43,7 @@ namespace CompraSemana.Core.Service
 
                 if(categorias != null)
                 {
-                    return JsonConvert.SerializeObject(categorias);
+                    return _mapper.Map<ICollection<CategoriaDTO>>(categorias);
                 }
                 else
                 {
@@ -50,10 +56,10 @@ namespace CompraSemana.Core.Service
             }
         }
 
-        public async Task<bool> Adicionar(string json)
+        public async Task<bool> Adicionar(CategoriaDTO categoria)
         {
-            var categoria = JsonConvert.DeserializeObject<Categoria>(json);
-            return await _categoriaRepository.Adicionar(categoria);
+            var _categoria = _mapper.Map<CategoriaDTO, Categoria>(categoria);
+            return await _categoriaRepository.Adicionar(_categoria);
         }
     }
 }
