@@ -13,6 +13,7 @@ namespace CompraSemana.Core.Service.Interfaces
         Task<CategoriaDTO> ObterCategoriaPorId(int id);
         Task<IEnumerable<CategoriaDTO>> ObterTodasCategorias();
         Task<bool> Adicionar(CategoriaDTO categoria);
-        
+        Task<bool> Atualizar(CategoriaDTO categoria);
+        Task<bool> Deletar(int id);
     }
 }

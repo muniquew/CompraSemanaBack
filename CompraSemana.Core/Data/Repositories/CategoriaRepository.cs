@@ -22,14 +22,14 @@ namespace CompraSemana.Core.Data.Repositories
 
         public async Task<Categoria> ConsultarUnico(int id)
         {
-            var sql = "Select Id, Descricao, Situacao From Categoria Where Id = @Id";
+            var sql = "SELECT Id, Descricao, Situacao FROM Categoria Where Id = @Id";
 
             return await _baseRepository.QuerySingleOrDefault<Categoria>(sql, new { Id = id });
         }
         
         public async Task<IEnumerable<Categoria>> ConsultarTodos()
         {
-            var sql = "Select Id, Descricao, Situacao From Categoria";
+            var sql = "SELECT Id, Descricao, Situacao FROM Categoria";
 
             return await _baseRepository.QueryAll<Categoria>(sql);
         }
@@ -43,6 +43,36 @@ namespace CompraSemana.Core.Data.Repositories
                 return await _baseRepository.Execute(sql, categoria);
             }
             catch(Exception)
+            {
+                //Implementar log
+                return false;
+            }
+        }
+
+        public async Task<bool> Atualizar(Categoria categoria)
+        {
+            var sql = "UPDATE Categoria SET Descricao = @Descricao, Situacao = @Situacao WHERE Id = @Id;";
+
+            try
+            {
+                return await _baseRepository.Execute(sql, categoria);
+            }
+            catch (Exception)
+            {
+                //Implementar log
+                return false;
+            }
+        }
+
+        public async Task<bool> Deletar(int id)
+        {
+            var sql = "DELETE FROM Categoria WHERE Id = @Id;";
+
+            try
+            {
+                return await _baseRepository.Execute(sql, new { Id = id});
+            }
+            catch (Exception)
             {
                 //Implementar log
                 return false;

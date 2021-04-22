@@ -12,5 +12,7 @@ namespace CompraSemana.Core.Data.Interfaces
         Task<Categoria> ConsultarUnico(int id);
         Task<IEnumerable<Categoria>> ConsultarTodos();
         Task<bool> Adicionar(Categoria categoria);
+        Task<bool> Atualizar(Categoria categoria);
+        Task<bool> Deletar(int id);
     }
 }

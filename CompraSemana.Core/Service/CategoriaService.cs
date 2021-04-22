@@ -29,7 +29,7 @@ namespace CompraSemana.Core.Service
 
                 return _mapper.Map<CategoriaDTO>(categoria);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return null;
             }
@@ -41,7 +41,7 @@ namespace CompraSemana.Core.Service
             {
                 var categorias = await _categoriaRepository.ConsultarTodos();
 
-                if(categorias != null)
+                if (categorias != null)
                 {
                     return _mapper.Map<ICollection<CategoriaDTO>>(categorias);
                 }
@@ -60,6 +60,17 @@ namespace CompraSemana.Core.Service
         {
             var _categoria = _mapper.Map<CategoriaDTO, Categoria>(categoria);
             return await _categoriaRepository.Adicionar(_categoria);
+        }
+
+        public async Task<bool> Atualizar(CategoriaDTO categoria)
+        {
+            var _categoria = _mapper.Map<CategoriaDTO, Categoria>(categoria);
+            return await _categoriaRepository.Atualizar(_categoria);
+        }
+
+        public async Task<bool> Deletar(int id)
+        {
+            return await _categoriaRepository.Deletar(id);
         }
     }
 }
