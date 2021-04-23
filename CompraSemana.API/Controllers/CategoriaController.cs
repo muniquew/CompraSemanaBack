@@ -1,12 +1,8 @@
-﻿using AutoMapper;
-using CompraSemana.Core.Service.DTO;
+﻿using CompraSemana.Core.Service.DTO;
 using CompraSemana.Core.Service.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace CompraSemana.API.Controllers
 {
@@ -15,10 +11,12 @@ namespace CompraSemana.API.Controllers
     public class CategoriaController : ControllerBase
     {
         private readonly ICategoriaService _categoriaService;
+        private readonly ILogger<CategoriaController> _logger;
 
-        public CategoriaController(ICategoriaService categoriaService)
+        public CategoriaController(ICategoriaService categoriaService, ILogger<CategoriaController> logger)
         {
             _categoriaService = categoriaService;
+            _logger = logger;
         }
 
         /// <summary>
