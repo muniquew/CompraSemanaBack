@@ -1,3 +1,4 @@
+using CompraSemana.API.Middleware;
 using CompraSemana.Core.Data.Interfaces;
 using CompraSemana.Core.Data.Repositories;
 using CompraSemana.Core.Service;
@@ -57,6 +58,8 @@ namespace CompraSemana
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

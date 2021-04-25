@@ -11,12 +11,10 @@ namespace CompraSemana.API.Controllers
     public class CategoriaController : ControllerBase
     {
         private readonly ICategoriaService _categoriaService;
-        private readonly ILogger<CategoriaController> _logger;
 
         public CategoriaController(ICategoriaService categoriaService, ILogger<CategoriaController> logger)
         {
             _categoriaService = categoriaService;
-            _logger = logger;
         }
 
         /// <summary>

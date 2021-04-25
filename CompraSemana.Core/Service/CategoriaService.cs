@@ -23,34 +23,19 @@ namespace CompraSemana.Core.Service
 
         public async Task<CategoriaDTO> ObterCategoriaPorId(int id)
         {
-            try
-            {
-                var categoria = await _categoriaRepository.ConsultarUnico(id);
-
-                return _mapper.Map<CategoriaDTO>(categoria);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            var categoria = await _categoriaRepository.ConsultarUnico(id);
+            return _mapper.Map<CategoriaDTO>(categoria);
         }
 
         public async Task<IEnumerable<CategoriaDTO>> ObterTodasCategorias()
         {
-            try
-            {
-                var categorias = await _categoriaRepository.ConsultarTodos();
+            var categorias = await _categoriaRepository.ConsultarTodos();
 
-                if (categorias != null)
-                {
-                    return _mapper.Map<ICollection<CategoriaDTO>>(categorias);
-                }
-                else
-                {
-                    return null;
-                }
+            if (categorias != null)
+            {
+                return _mapper.Map<ICollection<CategoriaDTO>>(categorias);
             }
-            catch (Exception)
+            else
             {
                 return null;
             }

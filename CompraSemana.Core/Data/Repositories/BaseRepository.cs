@@ -1,5 +1,6 @@
 ﻿using CompraSemana.Core.Data.Interfaces;
 using Dapper;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,13 @@ namespace CompraSemana.Core.Data.Repositories
     public class BaseRepository : IBaseRepository
     {
         private readonly IConnectionFactory _connection;
+        private readonly ILogger<BaseRepository> _logger;
 
-        public BaseRepository(IConnectionFactory connection)
+
+        public BaseRepository(IConnectionFactory connection, ILogger<BaseRepository> logger)
         {
             _connection = connection;
+            _logger = logger;
         }
 
         public async Task<T> QuerySingleOrDefault<T>(string query, object parameters = null)
@@ -26,9 +30,10 @@ namespace CompraSemana.Core.Data.Repositories
                     return await conn.QueryFirstOrDefaultAsync<T>(query, parameters);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return default(T);
+                _logger.LogError(ex, "Exception {0} no comando {1} params {2}", ex.Message, query, parameters);
+                return default;
             }
         }
 
@@ -41,8 +46,9 @@ namespace CompraSemana.Core.Data.Repositories
                     return await conn.QueryAsync<T>(query, parameters);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "Exception {0} no comando {1} params {2}", ex.Message, query, parameters);
                 return null;
             }
         }
@@ -65,8 +71,9 @@ namespace CompraSemana.Core.Data.Repositories
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "Exception {0} no comando {1} params {2}", ex.Message, query, parameters);
                 return false;
             }
         }
