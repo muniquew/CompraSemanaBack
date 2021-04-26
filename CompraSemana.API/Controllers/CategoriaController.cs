@@ -3,6 +3,7 @@ using CompraSemana.Core.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using CompraSemana.Core.Util.Exception;
 
 namespace CompraSemana.API.Controllers
 {
@@ -12,7 +13,7 @@ namespace CompraSemana.API.Controllers
     {
         private readonly ICategoriaService _categoriaService;
 
-        public CategoriaController(ICategoriaService categoriaService, ILogger<CategoriaController> logger)
+        public CategoriaController(ICategoriaService categoriaService)
         {
             _categoriaService = categoriaService;
         }
@@ -35,7 +36,7 @@ namespace CompraSemana.API.Controllers
 
             if (result == null)
             {
-                return NotFound();
+                throw new ServiceException("A categoria solicitada não foi localizada.");
             }
 
             return Ok(result);
@@ -52,14 +53,14 @@ namespace CompraSemana.API.Controllers
         {
             if (id != categoria.Id)
             {
-                return NotFound();
+                throw new ServiceException("A categoria informada não foi localizada.");
             }
 
             var _categoria = await _categoriaService.ObterCategoriaPorId(id);
 
             if (_categoria == null)
             {
-                return NotFound();
+                throw new ServiceException("A categoria informada não foi localizada.");
             }
 
             return Ok(await _categoriaService.Atualizar(categoria));
@@ -72,7 +73,7 @@ namespace CompraSemana.API.Controllers
 
             if (_categoria == null)
             {
-                return NotFound();
+                throw new ServiceException("A categoria informada não foi localizada.");
             }
 
             return Ok(await _categoriaService.Deletar(id));

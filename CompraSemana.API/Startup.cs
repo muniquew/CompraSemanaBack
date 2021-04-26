@@ -6,6 +6,7 @@ using CompraSemana.Core.Service.DTO;
 using CompraSemana.Core.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,11 +33,14 @@ namespace CompraSemana
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CompraSemana", Version = "v1" });
             });
+            services.Configure<RouteOptions>(options => { options.LowercaseUrls = true; });
 
             services.AddTransient<IBaseRepository, BaseRepository>();
             services.AddTransient<IConnectionFactory, ConnectionFactory>();
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ICategoriaService, CategoriaService>();
+            services.AddTransient<IUnidadeRepository, UnidadeRepository>();
+            services.AddTransient<IUnidadeService, UnidadeService>();
 
             services.AddAutoMapper(typeof(MapperConfig));
         }

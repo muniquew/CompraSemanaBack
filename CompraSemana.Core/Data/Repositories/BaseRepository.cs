@@ -1,4 +1,5 @@
 ﻿using CompraSemana.Core.Data.Interfaces;
+using CompraSemana.Core.Util.Exception;
 using Dapper;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,7 +14,6 @@ namespace CompraSemana.Core.Data.Repositories
     {
         private readonly IConnectionFactory _connection;
         private readonly ILogger<BaseRepository> _logger;
-
 
         public BaseRepository(IConnectionFactory connection, ILogger<BaseRepository> logger)
         {
@@ -33,7 +33,7 @@ namespace CompraSemana.Core.Data.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Exception {0} no comando {1} params {2}", ex.Message, query, parameters);
-                return default;
+                throw new DataRepoException(ex.Message);
             }
         }
 
@@ -49,7 +49,7 @@ namespace CompraSemana.Core.Data.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Exception {0} no comando {1} params {2}", ex.Message, query, parameters);
-                return null;
+                throw new DataRepoException(ex.Message);
             }
         }
 
@@ -74,7 +74,7 @@ namespace CompraSemana.Core.Data.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Exception {0} no comando {1} params {2}", ex.Message, query, parameters);
-                return false;
+                throw new DataRepoException(ex.Message);
             }
         }
 

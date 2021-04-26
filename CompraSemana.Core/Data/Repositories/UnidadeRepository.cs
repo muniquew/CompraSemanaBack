@@ -28,7 +28,7 @@ namespace CompraSemana.Core.Data.Repositories
 
         public async Task<IEnumerable<Unidade>> ConsultarTodos()
         {
-            var sql = "SELECT Id, Descricao, Sigla, Situacao FROM Categoria";
+            var sql = "SELECT Id, Descricao, Sigla, Situacao FROM Unidade";
 
             return await _baseRepository.QueryAll<Unidade>(sql);
         }

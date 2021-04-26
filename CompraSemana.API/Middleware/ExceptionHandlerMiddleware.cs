@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CompraSemana.Core.Util.Exception;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -13,11 +13,13 @@ namespace CompraSemana.API.Middleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ExceptionHandlerMiddleware> _logger;
+        private readonly IWebHostEnvironment _env;
 
-        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
+        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger, IWebHostEnvironment env)
         {
             _next = next;
             _logger = logger;
+            _env = env;
         }
 
         public async Task Invoke(HttpContext context)
@@ -35,13 +37,31 @@ namespace CompraSemana.API.Middleware
 
         private Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
+            var type = ex.GetType();
+            int status;
+            string trace = string.Empty;
+
+            if (type == typeof(DataRepoException))
+            {
+                status = ((int)HttpStatusCode.BadRequest);
+            }
+            else if (type == typeof(ServiceException))
+            {
+                status = ((int)HttpStatusCode.NotFound);
+            }
+            else
+            {
+                status = ((int)HttpStatusCode.InternalServerError);
+                trace = ex.StackTrace;
+            }
+
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             var problemDetail = new
             {
-                statusCode = (int)HttpStatusCode.InternalServerError,
-                message = ex.Message
+                statusCode = (int)status,
+                message = ex.Message,
+                trace = _env.EnvironmentName == "Development" ? trace : string.Empty
             };
 
             return context.Response.WriteAsync(JsonSerializer.Serialize(problemDetail));

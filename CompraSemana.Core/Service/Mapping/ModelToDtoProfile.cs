@@ -9,6 +9,7 @@ namespace CompraSemana.Core.Service.Mapping
         public ModelToDtoProfile()
         {
             CreateMap<Categoria, CategoriaDTO>();
+            CreateMap<Unidade, UnidadeDTO>();
         }
     }
 }
