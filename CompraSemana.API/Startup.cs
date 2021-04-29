@@ -4,14 +4,18 @@ using CompraSemana.Core.Data.Repositories;
 using CompraSemana.Core.Service;
 using CompraSemana.Core.Service.DTO;
 using CompraSemana.Core.Service.Interfaces;
+using CompraSemana.Core.Util;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Text;
 
 namespace CompraSemana
 {
@@ -35,12 +39,34 @@ namespace CompraSemana
             });
             services.Configure<RouteOptions>(options => { options.LowercaseUrls = true; });
 
+            var key = Encoding.ASCII.GetBytes(JwtSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
             services.AddTransient<IBaseRepository, BaseRepository>();
             services.AddTransient<IConnectionFactory, ConnectionFactory>();
+            services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<ICategoriaRepository, CategoriaRepository>();
             services.AddTransient<ICategoriaService, CategoriaService>();
             services.AddTransient<IUnidadeRepository, UnidadeRepository>();
             services.AddTransient<IUnidadeService, UnidadeService>();
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            services.AddTransient<IUsuarioService, UsuarioService>();
 
             services.AddAutoMapper(typeof(MapperConfig));
         }

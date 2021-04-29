@@ -10,6 +10,7 @@ namespace CompraSemana.Core.Service.Mapping
         {
             CreateMap<CategoriaDTO, Categoria>();
             CreateMap<UnidadeDTO, Unidade>();
+            CreateMap<UsuarioDTO, Usuario>();
         }
     }
 }
