@@ -7,6 +7,6 @@ namespace CompraSemana.Core.Util
 {
     public class JwtSettings
     {
-        public const string Secret = "354fgdd#3n#$sr06ASdkedn42k*/wDweD340q1";
+        public const string Secret = "efp3ef403dqgrd5mdf932nervg7p1ax8";
     }
 }

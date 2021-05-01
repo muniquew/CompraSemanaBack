@@ -1,11 +1,7 @@
 ﻿using CompraSemana.Core.Service.DTO;
 using CompraSemana.Core.Service.Interfaces;
 using CompraSemana.Core.Util.Exception;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CompraSemana.API.Controllers
@@ -25,6 +21,7 @@ namespace CompraSemana.API.Controllers
 
         [HttpPost]
         [Route("login")]
+        [Consumes("application/json")]
         public async Task<ActionResult<dynamic>> Autenticar([FromBody] UsuarioDTO usuario)
         {
             var _usuario = await _usuarioService.Autenticar(usuario.Email, usuario.Senha);

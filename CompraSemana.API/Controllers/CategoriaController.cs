@@ -2,8 +2,8 @@
 using CompraSemana.Core.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using CompraSemana.Core.Util.Exception;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CompraSemana.API.Controllers
 {
@@ -24,12 +24,14 @@ namespace CompraSemana.API.Controllers
         /// <returns>Lista de categorias</returns>
         /// GET: api/categoria
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get()
         {
             return Ok(await _categoriaService.ObterTodasCategorias());
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> Get(int id)
         {
             var result = await _categoriaService.ObterCategoriaPorId(id);
@@ -43,12 +45,16 @@ namespace CompraSemana.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [Consumes("application/json")]
         public async Task<IActionResult> Post([FromBody] CategoriaDTO categoria)
         {
             return Ok(await _categoriaService.Adicionar(categoria));
         }
 
         [HttpPut("{id}")]
+        [Authorize]
+        [Consumes("application/json")]
         public async Task<IActionResult> Update(int id, CategoriaDTO categoria)
         {
             if (id != categoria.Id)
@@ -67,6 +73,7 @@ namespace CompraSemana.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var _categoria = await _categoriaService.ObterCategoriaPorId(id);

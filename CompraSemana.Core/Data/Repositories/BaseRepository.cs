@@ -33,7 +33,7 @@ namespace CompraSemana.Core.Data.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Exception {0} no comando {1} params {2}", ex.Message, query, parameters);
-                throw new DataRepoException(ex.Message);
+                throw new DataRepoException("Erro ao executar operação no banco.");
             }
         }
 
@@ -49,7 +49,7 @@ namespace CompraSemana.Core.Data.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Exception {0} no comando {1} params {2}", ex.Message, query, parameters);
-                throw new DataRepoException(ex.Message);
+                throw new DataRepoException("Erro ao executar operação no banco.");
             }
         }
 
@@ -74,7 +74,7 @@ namespace CompraSemana.Core.Data.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Exception {0} no comando {1} params {2}", ex.Message, query, parameters);
-                throw new DataRepoException(ex.Message);
+                throw new DataRepoException("Erro ao executar operação no banco.");
             }
         }
 

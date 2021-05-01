@@ -1,6 +1,6 @@
 ﻿namespace CompraSemana.Core.Models
 {
-    class Produto
+    public class Produto
     {
         public int Id { get; set; }
         public string Nome { get; set; }
