@@ -91,6 +91,8 @@ namespace CompraSemana
             services.AddTransient<IUnidadeService, UnidadeService>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
             services.AddTransient<IUsuarioService, UsuarioService>();
+            services.AddTransient<IProdutoRepository, ProdutoRepository>();
+            services.AddTransient<IProdutoService, ProdutoService>();
 
             services.AddAutoMapper(typeof(MapperConfig));
         }
